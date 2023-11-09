@@ -15,44 +15,49 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); // Enable CORS with the specified options
 
-// Define the /scan POST route
+// ... [rest of your code] ...
+
 app.post('/scan', (req, res) => {
-    const { ip } = req.body; // Extract the IP address from the request body
-   console.log('Received IP:', ip);
+    const { ip } = req.body;
+    console.log('Received IP:', ip);
   
- const funport = [20, 21, 22, 23, 25, 53, 80, 137, 139, 443, 445, 1433, 1434, 3306, 3389, 8080, 8443];
+    const funport = [20, 21, 22, 23, 25, 53, 80, 137, 139, 443, 445, 1433, 1434, 3306, 3389, 8080, 8443];
     let portScans = funport.map(port => {
         return new Promise(resolve => {
             const socket = new net.Socket();
-            const result = { port: port, status: 'closed' };
+            let result = { port: port, status: 'closed' };
 
             socket.setTimeout(4000);
             socket.on('connect', () => {
-                result.status = 'open';
+                result.status = 'open'; // Set status to 'open' on connection
                 socket.destroy();
             });
-            socket.on('error', () => {
+            socket.on('error', (err) => {
+                if (err.code === 'ECONNREFUSED') {
+                    result.status = 'closed'; // Set status to 'closed' if connection is refused
+                } // You can choose to handle other types of errors differently
                 socket.destroy();
             });
             socket.on('timeout', () => {
+                result.status = 'timeout'; // Set status to 'timeout' on timeout
                 socket.destroy();
             });
             socket.on('close', () => {
-                resolve(result);
+                resolve(result); // Resolve the promise with the result
             });
 
-            socket.connect({ port: port, host: ip }); // Ensure to connect using host and port
+            socket.connect({ port: port, host: ip });
         });
     });
 
     Promise.all(portScans).then(results => {
-        console.log(results)
-        res.json(results); // Respond with the results as JSON
+        console.log(results); // Log the results for debugging
+        res.json(results); // Send the results back to the client
     }).catch(error => {
+        console.error('Error during scanning:', error);
         res.status(500).send('Error during scanning');
     });
 });
-
    
 app.use((req, res) =>{
   res.send('Welcome to Port Scan Server!')
