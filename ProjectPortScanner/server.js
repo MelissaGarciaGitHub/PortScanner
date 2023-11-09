@@ -18,12 +18,8 @@ app.use(cors(corsOptions)); // Enable CORS with the specified options
 // Define the /scan POST route
 app.post('/scan', (req, res) => {
     const { ip } = req.body; // Extract the IP address from the request body
-
-    // Log the IP address to the console
-    console.log('Received IP:', ip);
-
-    // Your existing scanning logic
-    // ...
+   console.log('Received IP:', ip);
+  
  const funport = [20, 21, 22, 23, 25, 53, 80, 137, 139, 443, 445, 1433, 1434, 3306, 3389, 8080, 8443];
     let portScans = funport.map(port => {
         return new Promise(resolve => {
@@ -60,6 +56,14 @@ app.post('/scan', (req, res) => {
 app.use((req, res) =>{
   res.send('Welcome to Port Scan Server!')
 })
+app.use((req, res) => {
+  res.status(404).send('404 Not Found: The requested resource does not exist on this server.');
+})
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
