@@ -4,16 +4,8 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors({
-    origin: ['https://mgarcia46.domains.ggc.edu'] // Allow both domains
-}));
-
-  
-
-
 app.use(express.json());
 
-// Route for port scanning
 app.post('/scan', (req, res) => {
     const { ip } = req.body; 
     const funport = [20, 21, 22, 23, 25, 53, 80, 137, 139, 443, 445, 1433, 1434, 3306, 3389, 8080, 8443]; 
