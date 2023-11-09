@@ -8,7 +8,7 @@ app.use(express.json());
 
 // Set up CORS to allow your client domain
 const corsOptions = {
-  origin: 'https://mgarcia46.domains.ggc.edu.com', // Replace with your actual client domain
+  origin: 'https://mgarcia46.domains.ggc.edu', // Replace with your actual client domain
   methods: ['POST'], // Allow only POST for /scan endpoint
   optionsSuccessStatus: 200
 };
