@@ -26,7 +26,7 @@ app.post('/scan', (req, res) => {
             const socket = new net.Socket();
             const result = { port: port, status: 'closed' };
 
-            socket.setTimeout(2000);
+            socket.setTimeout(4000);
             socket.on('connect', () => {
                 result.status = 'open';
                 socket.destroy();
