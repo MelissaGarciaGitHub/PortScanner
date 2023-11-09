@@ -46,6 +46,7 @@ app.post('/scan', (req, res) => {
     });
 
     Promise.all(portScans).then(results => {
+        console.log(results)
         res.json(results); // Respond with the results as JSON
     }).catch(error => {
         res.status(500).send('Error during scanning');
