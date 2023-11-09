@@ -5,6 +5,17 @@ const cors = require('cors');
 const app = express();
 
 app.use(express.json());
+// Other code remains the same
+
+const corsOptions = {
+  origin: 'https://your-website-origin.com', // Replace with your website's origin
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions)); // Use the CORS middleware with the specified options
+
+// The rest of the code remains the same
+
 
 app.post('/scan', (req, res) => {
     const { ip } = req.body; 
