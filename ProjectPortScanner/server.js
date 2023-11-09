@@ -8,11 +8,13 @@ app.use(express.json());
 // Other code remains the same
 
 const corsOptions = {
-  origin: 'https://mgarcia46.domains.ggc.edu/', // Replace with your website's origin
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: 'https://mgarcia46.domains.ggc.edu', // Set this to your front-end's origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // if your front-end would send cookies to the server
+  optionsSuccessStatus: 204
 };
 
-app.use(cors(corsOptions)); // Use the CORS middleware with the specified options
+app.use(cors(corsOptions)); // Enable CORS with the above options
 
 // The rest of the code remains the same
 
