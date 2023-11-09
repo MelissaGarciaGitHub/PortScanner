@@ -49,7 +49,7 @@ app.post('/scan', (req, res) => {
     });
 });
 
-server.use((req, res) =>{
+app.use((req, res) =>{
   res.send('Hello Word!')
 })
 
