@@ -3,6 +3,7 @@ const net = require('net');
 const cors = require('cors');
 
 const app = express();
+
 app.use(express.json());
 
 // Set up CORS to allow your client domain
@@ -16,8 +17,14 @@ app.use(cors(corsOptions)); // Enable CORS with the specified options
 
 // Define the /scan POST route
 app.post('/scan', (req, res) => {
-    const { ip } = req.body; // Make sure this key matches what the client sends
-    const funport = [20, 21, 22, 23, 25, 53, 80, 137, 139, 443, 445, 1433, 1434, 3306, 3389, 8080, 8443];
+    const { ip } = req.body; // Extract the IP address from the request body
+
+    // Log the IP address to the console
+    console.log('Received IP:', ip);
+
+    // Your existing scanning logic
+    // ...
+ const funport = [20, 21, 22, 23, 25, 53, 80, 137, 139, 443, 445, 1433, 1434, 3306, 3389, 8080, 8443];
     let portScans = funport.map(port => {
         return new Promise(resolve => {
             const socket = new net.Socket();
@@ -49,6 +56,7 @@ app.post('/scan', (req, res) => {
     });
 });
 
+   
 app.use((req, res) =>{
   res.send('Welcome to Port Scan Server!')
 })
