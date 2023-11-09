@@ -25,21 +25,21 @@ app.post('/scan', (req, res) => {
     let portScans = funport.map(port => {
         return new Promise(resolve => {
             const socket = new net.Socket();
-            let result = { port: port, status: 'closed' };
+            let result = { port: port, status: 'CLOSED' };
 
             socket.setTimeout(4000);
             socket.on('connect', () => {
-                result.status = 'open'; // Set status to 'open' on connection
+                result.status = 'OPEN'; // Set status to 'open' on connection
                 socket.destroy();
             });
             socket.on('error', (err) => {
                 if (err.code === 'ECONNREFUSED') {
-                    result.status = 'closed'; // Set status to 'closed' if connection is refused
+                    result.status = 'CLOSED'; // Set status to 'closed' if connection is refused
                 } // You can choose to handle other types of errors differently
                 socket.destroy();
             });
             socket.on('timeout', () => {
-                result.status = 'timeout'; // Set status to 'timeout' on timeout
+                result.status = 'Timeout'; // Set status to 'timeout' on timeout
                 socket.destroy();
             });
             socket.on('close', () => {
