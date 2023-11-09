@@ -8,7 +8,7 @@ app.use(express.json());
 // Other code remains the same
 
 const corsOptions = {
-  origin: 'https://your-website-origin.com', // Replace with your website's origin
+  origin: 'https://mgarcia46.domains.ggc.edu/', // Replace with your website's origin
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
