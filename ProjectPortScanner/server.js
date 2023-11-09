@@ -50,7 +50,7 @@ app.post('/scan', (req, res) => {
 });
 
 app.use((req, res) =>{
-  res.send('Hello Word!')
+  res.send('Welcome to Port Scan Server!')
 })
 
 const PORT = process.env.PORT || 3000;
