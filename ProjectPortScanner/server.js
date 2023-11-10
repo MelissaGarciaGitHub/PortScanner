@@ -15,7 +15,7 @@ app.use(cors(corsOptions));
 
 app.post('/scan', (req, res) => {
     const { ip } = req.body;
-    console.log('Recieved an IP address from PortVision:');
+    console.log('Recieved an IP address from PortVision!');
   
     const funport = [20, 21, 22, 23, 25, 53, 80, 137, 139, 443, 445, 1433, 1434, 3306, 3389, 8080, 8443];
     let portScans = funport.map(port => {
