@@ -30,7 +30,7 @@ app.post('/scan', (req, res) => {
             });
             socket.on('error', (err) => {
                 if (err.code === 'ECONNREFUSED') {
-                    result.status = 'closed!'; 
+                    result.status = 'timeout!'; 
                 } 
                 socket.destroy();
             });
