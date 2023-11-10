@@ -21,7 +21,7 @@ app.post('/scan', (req, res) => {
     let portScans = funport.map(port => {
         return new Promise(resolve => {
             const socket = new net.Socket();
-            let result = { port: port, status: 'CLOSED' };
+            let result = { port: port, status: 'closed!' };
 
             socket.setTimeout(4000);
             socket.on('connect', () => {
