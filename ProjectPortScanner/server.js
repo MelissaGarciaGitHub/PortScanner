@@ -1,6 +1,7 @@
 const express = require('express');
 const net = require('net');
 const cors = require('cors');
+
 const app = express();
 
 app.use(express.json());
@@ -19,7 +20,7 @@ app.post('/scan', (req, res) => {
   
     const funport = [20, 21, 22, 23, 25, 53, 80, 137, 139, 443, 445, 1433, 1434, 3306, 3389, 8080, 8443];
     let portScans = funport.map(port => {
-        return new checks(resolve => {
+        return new Promise(resolve => {
             const socket = new net.Socket();
             let result = { port: port, status: 'CLOSED' };
 
@@ -46,7 +47,7 @@ app.post('/scan', (req, res) => {
         });
     });
 
-    checks.all(portScans).then(results => {
+    Promise.all(portScans).then(results => {
         console.log(results); 
         res.json(results); 
     }).catch(error => {
